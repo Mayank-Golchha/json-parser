@@ -28,7 +28,7 @@ int main() {
         "isStudent": true
     })";
 
-    JsonNode result = *Json(code).parse();
+    JsonNode result = *Json(json_text).parse();
 
     std::cout << "Name: " << std::string(result["name"]) << "\n";
     std::cout << "Age: " << int(result["age"]) << "\n";
