@@ -37,3 +37,21 @@ int main() {
 
     return 0;
 }
+```
+
+---
+
+## 🧠 Language Used
+
+This project is written in **C++17**, using standard library features only.  
+No external dependencies are required.
+
+---
+
+## 🤝 Contributions Welcome
+
+Got ideas? Found a bug? Want to improve the parser?
+
+Feel free to **fork the repo**, **open issues**, or submit a **pull request**.
+
+Your contributions are welcome and appreciated! ❤️
