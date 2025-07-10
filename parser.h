@@ -25,23 +25,6 @@ class Json{
             current_token = NULL;
         }
 
-        // int JsonProperty(JsonNode& object){
-        //     if (current_token && current_token->token_type == TOKEN_TYPES::STRING_T){
-        //         std::string key = current_token->value;
-        //         advance();
-        //         if (current_token && current_token->token_type == TOKEN_TYPES::COLON_T){
-        //             advance();
-        //             JsonNode* value = JsonValue();
-        //             if (value){
-        //                 object[key] = *value;
-
-        //                 return 1;
-        //             } 
-        //         }
-        //     }
-        //     return 0;
-        // }
-
         int JsonProperty(std::unordered_map<std::string,JsonNode>&map){
             if (current_token && current_token->token_type == TOKEN_TYPES::STRING_T){
                 std::string key = current_token->value;
@@ -59,20 +42,6 @@ class Json{
             return 0;
         }
 
-
-        // void JsonChildrenProperty(JsonNode& node){
-        //     if (current_token && current_token->token_type == TOKEN_TYPES::COMMA_T){
-        //         advance();
-        //         if (JsonProperty(node)){
-        //             JsonChildrenProperty(node);
-        //         }
-        //         else{
-        //             //something must be there after comma
-        //             throw "[ERROR] : INVALID JSON";
-        //         }
-        //     }
-        // }
-
         void JsonChildrenProperty(std::unordered_map<std::string,JsonNode>&map){
             if (current_token && current_token->token_type == TOKEN_TYPES::COMMA_T){
                 advance();
@@ -89,9 +58,10 @@ class Json{
 
         void JsonArrayChildren(std::vector<JsonNode>& array){
             if (current_token && current_token->token_type == TOKEN_TYPES::COMMA_T){
+                advance();
                 JsonNode value = *JsonValue();
                 array.push_back(value);
-                advance();
+                // advance();
                 JsonArrayChildren(array);
             }
         }
@@ -102,10 +72,10 @@ class Json{
                 if (current_token){
                     std::vector<JsonNode> arr;
                     JsonNode *value = JsonValue();
-
                     if (value){
                         arr.push_back(*value);
                         JsonArrayChildren(arr);
+
                         if (current_token && current_token->token_type == TOKEN_TYPES::RSQBRACKET_T){
                             advance();
                             JsonNode* node = new JsonNode(arr);
@@ -126,10 +96,7 @@ class Json{
                 advance();
                 if (current_token){
                     std::unordered_map<std::string,JsonNode> map; 
-                    // JsonNode* obj = new JsonNode(map);
-                    // if (JsonProperty(*obj)){
                     if (JsonProperty(map)){
-                        // JsonChildrenProperty(*obj);
                         JsonChildrenProperty(map);
                         if (current_token && current_token->token_type == TOKEN_TYPES::RBRACKET_T){
                             advance();
