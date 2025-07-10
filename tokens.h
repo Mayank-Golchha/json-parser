@@ -10,20 +10,6 @@
 std::string TOKEN_TYPES_NAME[] = {"STRING","NUMBER","LBRACKET","RBRACKET","LSQBRACKET","RSQBRACKET","COMMA","COLON","BOOLEAN","NULL","ERROR"};
 int TOKEN_DATA_TYPES_LEN = 11;
 
-// enum TOKEN_TYPES{
-//     STRING,         // string
-//     NUMBER,         // number
-//     LBRACKET,       // {
-//     RBRACKET,       // }
-//     LSQBRACKET,     // [
-//     RSQBRACKET,     // ]
-//     COMMA,          // ,
-//     COLON,          // :
-//     BOOLEAN,        // true | false
-//     NONE_,          // null
-//     ERROR_          // error token  
-// };
-
 enum JSON_TYPE{
     OBJECT, //key and value pairs
     ARRAY,
@@ -61,7 +47,7 @@ class JsonNode{
         std::variant<std::vector<JsonNode>,std::unordered_map<std::string,JsonNode>,std::string,float,int,bool> data;
         
         JsonNode() : type(JSON_TYPE::NONE_){};
-
+        
         JsonNode(const char* data_) : type(JSON_TYPE::STRING){
             data = data_;
         }
